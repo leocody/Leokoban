@@ -32,24 +32,36 @@ class App:
             pyxel.quit()
 
         if pyxel.btnp(pyxel.KEY_UP) or pyxel.btnp(pyxel.GAMEPAD_1_UP):
-            nextposition = self.course[self.player.y - 1][self.player.x]
-            if nextposition != WALL:
-                self.player.move_up()   
+            if self.box.x == self.player.x and self.box.y == self.player.y - 1:
+                self.player.push_and_move_up(self.box)
+            else:
+                nextposition = self.course[self.player.y - 1][self.player.x]
+                if nextposition != WALL:
+                    self.player.move_up()   
         
         if pyxel.btnp(pyxel.KEY_DOWN) or pyxel.btnp(pyxel.GAMEPAD_1_DOWN):
-            nextposition = self.course[self.player.y + 1][self.player.x]
-            if nextposition != WALL:
-                self.player.move_down()    
+            if self.box.x == self.player.x and self.box.y == self.player.y + 1:
+                self.player.push_and_move_down(self.box)
+            else:
+                nextposition = self.course[self.player.y + 1][self.player.x]
+                if nextposition != WALL:
+                    self.player.move_down()    
         
         if pyxel.btnp(pyxel.KEY_LEFT) or pyxel.btnp(pyxel.GAMEPAD_1_LEFT):
-            nextposition = self.course[self.player.y][self.player.x - 1]
-            if nextposition != WALL:
-                self.player.move_left()   
+            if self.box.x == self.player.x - 1 and self.box.y == self.player.y:
+                self.player.push_and_move_left(self.box)
+            else:
+                nextposition = self.course[self.player.y][self.player.x - 1]
+                if nextposition != WALL:
+                    self.player.move_left()   
         
         if pyxel.btnp(pyxel.KEY_RIGHT) or pyxel.btnp(pyxel.GAMEPAD_1_RIGHT):
-            nextposition = self.course[self.player.y][self.player.x + 1]
-            if nextposition != WALL:
-                self.player.move_right()   
+            if self.box.x == self.player.x + 1 and self.box.y == self.player.y:
+                self.player.push_and_move_right(self.box)
+            else:
+                nextposition = self.course[self.player.y][self.player.x + 1]
+                if nextposition != WALL:
+                    self.player.move_right()   
         
 
     #DRAW LOGIC   

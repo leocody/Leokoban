@@ -22,19 +22,22 @@ class Player:
 
     #Push Logic
 
-    def push_up(self, box):
-        self.move_up()
+    def push_and_move_up(self, box):
         box.move_up()
-        pass
+        self.move_up()
 
-    def push_down(self, box):
-        pass
+    def push_and_move_down(self, box):
+        box.move_down()
+        self.move_down()
 
-    def push_left(self, box):
-        pass
+    def push_and_move_left(self, box):
+        box.move_left()
+        self.move_left()
 
-    def push_right(self, box):
-        pass
+    def push_and_move_right(self, box):
+        box.move_right()
+        self.move_right()
+        
 
     #DRAW LOGIC
     def draw(self):
