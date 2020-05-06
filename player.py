@@ -1,4 +1,5 @@
 import pyxel
+from constant import PYSIZE, HALFPYSIZE
 
 class Player:
     def __init__(self, x, y):
@@ -34,4 +35,8 @@ class Player:
 
     def push_right(self, box):
         pass
+
+    #DRAW LOGIC
+    def draw(self):
+        pyxel.blt(self.x * PYSIZE, self.y * PYSIZE, 0, 16, 0, 16, 16)
 
