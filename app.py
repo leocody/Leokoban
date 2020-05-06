@@ -1,11 +1,12 @@
 import pyxel
 from player import Player
+from box import Box
 from constant import PYSIZE, HALFPYSIZE
 
 COURSE_LAYOUT = [
     [2, 2, 2, 2, 2],
     [2, 0, 0, 0, 2],
-    [2, 0, 3, 0, 2],
+    [2, 0, 0, 0, 2],
     [2, 0, 0, 4, 2],
     [2, 2, 2, 2, 2]
 ]
@@ -21,6 +22,7 @@ class App:
     def __init__(self, course):
         self.course = course
         self.player = Player(1, 2)
+        self.box = Box(2, 2)
         pyxel.init(SCREEN_WIDTH, SCREEN_HEIGHT, caption="Leokoban")
         pyxel.load("assets/images.pyxres")
         pyxel.run(self.draw, self.update)
@@ -64,12 +66,13 @@ class App:
                 elif square == WALL:
                     pyxel.blt(x * PYSIZE, y * PYSIZE, 0, 32, 0, 16, 16)
                 elif square == BOX:
-                    pyxel.blt(x * PYSIZE, y * PYSIZE, 0, 48, 0, 16, 16)
+                    pass
                 elif square == GOAL:
                     pyxel.blt(x * PYSIZE, y * PYSIZE, 0, 0, 16, 16, 16)
                 else:
                     print("Unknown")
         self.player.draw()
+        self.box.draw()
 
 
 App(COURSE_LAYOUT)
