@@ -8,10 +8,11 @@ COURSE_LAYOUT = [
     [2, 2, 2, 2, 2]
 ]
 
-
-SCREEN_WIDTH = 5 * 8
-SCREEN_HEIGHT = 5 * 8
-
+PYSIZE = 8 * 2
+HALFPYSIZE = PYSIZE / 2
+SCREEN_WIDTH = 5 * PYSIZE
+SCREEN_HEIGHT = 5 * PYSIZE
+EMPTY = 0
 PLAYER = 1
 WALL = 2
 BOX = 3
@@ -20,6 +21,7 @@ class App:
     def __init__(self, course):
         self.course = course
         pyxel.init(SCREEN_WIDTH, SCREEN_HEIGHT, caption="Leokoban")
+        pyxel.load("assets/images.pyxres")
         pyxel.run(self.draw, self.update)
     
     def update(self):
@@ -29,16 +31,17 @@ class App:
     def draw(self):
         for y, line in enumerate(self.course):
             for x, square in enumerate(line):
-                if square == 0:
-                    print("Empty")
+                if square == EMPTY:
+                    pass
+                    # pyxel.blt(x * PYSIZE, y * PYSIZE, 0, 0, 0, 16, 16)
                 elif square == PLAYER:
-                    pyxel.circ(x * 8 + 4, y * 8 + 4, 2, pyxel.COLOR_LIME)
+                    pyxel.blt(x * PYSIZE, y * PYSIZE, 0, 16, 0, 16, 16)
                 elif square == WALL:
-                    pyxel.rect(x * 8, y * 8, 8, 8, pyxel.COLOR_BROWN)
+                    pyxel.blt(x * PYSIZE, y * PYSIZE, 0, 32, 0, 16, 16)
                 elif square == BOX:
-                    pyxel.rect(x * 8, y * 8, 8, 8, pyxel.COLOR_ORANGE)
+                    pyxel.blt(x * PYSIZE, y * PYSIZE, 0, 48, 0, 16, 16)
                 elif square == GOAL:
-                    pyxel.circ(x * 8 + 4, y * 8 + 4, 0.5, pyxel.COLOR_CYAN)
+                    pyxel.blt(x * PYSIZE, y * PYSIZE, 0, 0, 16, 16, 16)
                 else:
                     print("Unknown")
 
