@@ -9,22 +9,22 @@ class Player:
     #Move Logic
 
     def move_up(self):
-        pass
+        self.y -= 1
 
     def move_down(self):
-        pass
+        self.y += 1
 
     def move_left(self):
-        pass
+        self.x -= 1
 
     def move_right(self):
-        pass
+        self.x += 1
 
     #Push Logic
 
     def push_up(self, box):
         self.move_up()
-        box.box_move_up()
+        box.move_up()
         pass
 
     def push_down(self, box):

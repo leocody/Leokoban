@@ -30,12 +30,29 @@ class App:
             pyxel.quit()
 
         if pyxel.btnp(pyxel.KEY_UP) or pyxel.btnp(pyxel.GAMEPAD_1_UP):
-            self.player.move_up()
-
-            
+            nextposition = self.course[self.player.y - 1][self.player.x]
+            if nextposition != WALL:
+                self.player.move_up()   
+        
+        if pyxel.btnp(pyxel.KEY_DOWN) or pyxel.btnp(pyxel.GAMEPAD_1_DOWN):
+            nextposition = self.course[self.player.y + 1][self.player.x]
+            if nextposition != WALL:
+                self.player.move_down()    
+        
+        if pyxel.btnp(pyxel.KEY_LEFT) or pyxel.btnp(pyxel.GAMEPAD_1_LEFT):
+            nextposition = self.course[self.player.y][self.player.x - 1]
+            if nextposition != WALL:
+                self.player.move_left()   
+        
+        if pyxel.btnp(pyxel.KEY_RIGHT) or pyxel.btnp(pyxel.GAMEPAD_1_RIGHT):
+            nextposition = self.course[self.player.y][self.player.x + 1]
+            if nextposition != WALL:
+                self.player.move_right()   
+        
 
     #DRAW LOGIC   
     def draw(self):
+        pyxel.cls(pyxel.COLOR_BLACK)
         for y, line in enumerate(self.course):
             for x, square in enumerate(line):
                 if square == EMPTY:
