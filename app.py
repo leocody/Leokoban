@@ -2,7 +2,7 @@ import pyxel
 from player import Player
 from box import Box
 from constant import PYSIZE, HALFPYSIZE, SCREEN_HEIGHT, SCREEN_WIDTH
-COURSE_LAYOUT = [
+COURSE_LAYOUT1 = [
     [2, 2, 2, 2, 2],
     [2, 0, 0, 0, 2],
     [2, 0, 0, 0, 2],
@@ -17,7 +17,8 @@ WALL = 2
 BOX = 3
 GOAL = 4
 class App:
-    def __init__(self, course):
+    def __init__(self, course, limit):
+        self.limit = limit
         self.course = course
         self.reset()
         pyxel.init(SCREEN_WIDTH, SCREEN_HEIGHT, caption="Leokoban")
@@ -25,6 +26,9 @@ class App:
         pyxel.run(self.draw, self.update)
     
     def update(self):
+        if self.gameover or self.goal: return 
+
+        
         if pyxel.btnp(pyxel.KEY_Q) or pyxel.btnp(pyxel.GAMEPAD_1_A):
             pyxel.quit()
 
@@ -72,17 +76,24 @@ class App:
             self.reset()
             
         self.check_complete()
+        self.check_gameover()
 
     def check_complete(self):
         box_pos = self.course[self.box.y][self.box.x]
         if box_pos == GOAL:
             self.goal = True
 
+    def check_gameover(self):
+        if self.player.step >= self.limit:
+            self.gameover = True
+
+
     #RESET LOGIC
     def reset(self):
         self.player = Player(1, 2)
         self.box = Box(2, 2)
         self.goal = False
+        self.gameover = False
 
 
 
@@ -110,16 +121,20 @@ class App:
         self.player.draw()
         self.box.draw()
 
-        #CHECK IF IT IS GOAL
 
-        if self.goal:
+
+        if self.goal:            #CHECK IF IT IS GOAL
             pyxel.text(
                 SCREEN_WIDTH / 2 - 35, 
                 SCREEN_HEIGHT / 2,
                 "GOAL! YOU MADE IT!",
                 11)
+        elif self.gameover:         #CHECK IF IT IS GAMEOVER
+            pyxel.text(SCREEN_HEIGHT / 2 - 35,
+             SCREEN_HEIGHT / 2, 
+             "GAME OVER!!", 
+             pyxel.COLOR_RED) 
 
-    
 
 
-App(COURSE_LAYOUT)
+App(COURSE_LAYOUT1, 10)
