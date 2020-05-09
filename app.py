@@ -2,13 +2,13 @@ import pyxel
 from player import Player
 from box import Box
 from constant import PYSIZE, HALFPYSIZE, SCREEN_HEIGHT, SCREEN_WIDTH, GOAL, WALL, U_to_D, D_to_U, L_to_R, R_to_L
-from stages import Stage1, Stage2, Stage3
+from stages import Stage
 
 
 
 class App:
-    def __init__(self, stage):
-        self.stage = stage
+    def __init__(self):
+        self.stage_number = 0
         self.reset()
         pyxel.init(SCREEN_WIDTH, SCREEN_HEIGHT, caption="Leokoban")
         pyxel.load("assets/images.pyxres")
@@ -19,6 +19,9 @@ class App:
             pyxel.quit()
         if pyxel.btnp(pyxel.KEY_R) or pyxel.btnp(pyxel.GAMEPAD_1_B):
             self.reset()
+        
+        if pyxel.btnp(pyxel.KEY_N):
+            self.go_to_next_stage()
 
         if self.gameover or self.goal: return 
 
@@ -112,6 +115,7 @@ class App:
     
         #RESET LOGIC
     def reset(self):
+        self.stage = Stage.create_stage(self.stage_number)
         self.player = Player(self.stage.player[0], self.stage.player[1])
         self.boxes = []
         self.goal = False
@@ -121,7 +125,12 @@ class App:
             box = Box(box_tuple[0], box_tuple[1])
             self.boxes.append(box)
 
-
+    
+    
+    def go_to_next_stage(self):
+        self.stage_number += 1
+        self.stage_number %= Stage.stage_count_limit()
+        self.reset()
 
 
     #DRAW LOGIC  
@@ -129,6 +138,7 @@ class App:
         pyxel.cls(pyxel.COLOR_BLACK)
         self.stage.draw()
         self.player.draw()
+        pyxel.text(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 9, "Stage " + str(self.stage_number + 1), pyxel.COLOR_WHITE)
         for box in self.boxes:
             box.draw()
 
@@ -146,4 +156,4 @@ class App:
 
 
 
-App(Stage3())
+App()

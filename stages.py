@@ -20,6 +20,24 @@ class Stage:
     def get_kind(self, x, y):
         return self.layout[y][x]
 
+    @staticmethod
+    def create_stage(stage_number):
+
+        if stage_number == 0:
+            stage = Stage1()
+
+        if stage_number == 1:
+            stage = Stage2()
+
+        if stage_number == 2:
+            stage = Stage3()
+        
+        return stage
+    
+    @staticmethod
+    def stage_count_limit():
+        return 3
+
 class Stage1(Stage):
     def __init__(self):
         self.layout = [

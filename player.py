@@ -77,3 +77,4 @@ class Player:
         pyxel.text(1, SCREEN_HEIGHT - 9, "Walk Step : " + str(self.step), pyxel.COLOR_WHITE)
 
 
+
