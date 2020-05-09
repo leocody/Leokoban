@@ -1,5 +1,6 @@
 import pyxel
-from constant import PYSIZE, HALFPYSIZE, SCREEN_HEIGHT, SCREEN_WIDTH
+from constant import PYSIZE, HALFPYSIZE, SCREEN_HEIGHT, SCREEN_WIDTH, U_to_D, D_to_U, L_to_R, R_to_L, WALL
+
 
 class Player:
     def __init__(self, x, y):
@@ -24,6 +25,31 @@ class Player:
     def move_right(self):
         self.x += 1
         self.step += 1
+    
+    # If there is wall at the next position of the player, it will return False.
+    # In the other hand, if it has no wall at the next position of the player, It will return True.
+    def can_move(self, stage, direction):
+        if direction == D_to_U:
+            stage_square = stage.get_kind(self.x, self.y - 1)
+            if stage_square == WALL:
+                return False
+
+        if direction == U_to_D:
+            stage_square = stage.get_kind(self.x, self.y + 1)
+            if stage_square == WALL:
+                return False
+        
+        if direction == L_to_R:
+            stage_square = stage.get_kind(self.x + 1, self.y)
+            if stage_square == WALL:
+                return False
+        
+        if direction == R_to_L:
+            stage_square = stage.get_kind(self.x - 1, self.y)
+            if stage_square == WALL:
+                return False
+        
+        return True
 
     #Push Logic
 

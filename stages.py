@@ -2,38 +2,12 @@
 from constant import GOAL, WALL, EMPTY, PYSIZE
 import pyxel
 
-class Stage1:
+class Stage:
     def __init__(self):
-        # self.layout = [
-        #     [2, 2, 2, 2, 2, 2, 2, 2, 0],
-        #     [2, 0, 0, 0, 4, 4, 4, 0, 2],
-        #     [2, 0, 0, 0, 0, 0, 0, 0, 2],
-        #     [2, 0, 0, 0, 0, 0, 0, 0, 2],
-        #     [2, 0, 0, 0, 0, 0, 0, 0, 2],
-        #     [2, 0, 0, 0, 0, 0, 0, 0, 2],
-        #     [2, 0, 0, 0, 0, 0, 0, 0, 2],
-        #     [2, 2, 2, 2, 2, 2, 2, 2, 2]
-        # ]
-        self.layout = [
-            [0, 2, 2, 2, 2, 2, 2, 2, 0],
-            [0, 2, 0, 0, 4, 4, 4, 2, 0],
-            [0, 2, 0, 0, 0, 2, 2, 2, 2],
-            [0, 2, 2, 0, 0, 0, 0, 0, 2],
-            [2, 0, 0, 0, 2, 0, 2, 0, 2],
-            [2, 0, 0, 0, 2, 0, 0, 0, 2],
-            [2, 0, 0, 0, 2, 2, 2, 2, 2],
-            [2, 2, 2, 2, 2, 0, 0, 0, 0]
-        ]
-        self.playerx = 3
-        self.playery = 1
-        self.boxx = 2
-        self.boxy = 5
-        self.box2_x = 3
-        self.box2_y = 3
-        self.box3_x = 5
-        self.box3_y = 4
-        self.limit = 80
-
+        self.layout = []
+        self.boxes = []
+        self.box_count = 0
+        self.player = (0, 0)
 
     def draw(self):
         for y, line in enumerate(self.layout):
@@ -46,9 +20,72 @@ class Stage1:
     def get_kind(self, x, y):
         return self.layout[y][x]
 
+class Stage1(Stage):
+    def __init__(self):
+        self.layout = [
+            [0, 2, 2, 2, 2, 2, 2, 2, 0],
+            [0, 2, 0, 0, 4, 4, 4, 2, 0],
+            [0, 2, 0, 0, 0, 2, 2, 2, 2],
+            [0, 2, 2, 0, 0, 0, 0, 0, 2],
+            [2, 0, 0, 0, 2, 0, 2, 0, 2],
+            [2, 0, 0, 0, 2, 0, 0, 0, 2],
+            [2, 0, 0, 0, 2, 2, 2, 2, 2],
+            [2, 2, 2, 2, 2, 0, 0, 0, 0]
+        ]
+        self.boxes = [
+            (2, 5),
+            (3, 3),
+            (5, 4)
+        ]
+        self.player = (3, 1)
+        self.box_count = 3
+        self.limit = 55
 
-if __name__ == "__main__":
-    st = Stage1()
-    assert st.get_kind(0, 0) == EMPTY
-    assert st.get_kind(0, 4) == WALL
-    assert st.get_kind(5, 1) == GOAL
+
+class Stage2(Stage):
+    def __init__(self):
+        self.layout = [
+            [2, 2, 2, 2, 2, 0, 0, 0, 0],
+            [2, 0, 0, 0, 2, 0, 0, 0, 0],
+            [2, 0, 0, 0, 2, 0, 2, 2, 2],
+            [2, 0, 0, 0, 2, 0, 2, 4, 2],
+            [2, 2, 2, 0, 2, 2, 2, 4, 2],
+            [0, 2, 2, 0, 0, 0, 0, 4, 2],
+            [0, 2, 0, 0, 0, 2, 0, 0, 2],
+            [0, 2, 0, 0, 0, 2, 2, 2, 2],
+            [0, 2, 2, 2, 2, 2, 0, 0, 0]
+        ]
+        self.player = (1, 1)
+        self.boxes = [
+            (2, 2),
+            (2, 3),
+            (3, 2)
+        ]
+
+        self.box_count = 3
+        self.limit = 100
+
+class Stage3(Stage):
+    def __init__(self):
+        self.layout = [
+            [0, 0, 2, 2, 2, 2, 2, 2],
+            [0, 0, 2, 0, 0, 0, 0, 2],
+            [2, 2, 2, 0, 0, 0, 0, 2],
+            [2, 0, 0, 0, 4, 4, 0, 2],
+            [2, 0, 0, 4, 4, 4, 2, 2],
+            [2, 2, 2, 2, 0, 0, 2, 0],
+            [0, 0, 0, 2, 2, 2, 2, 0],
+        ]
+        self.player = (1, 3)
+        self.boxes = [
+            (2, 4),
+            (3, 2),
+            (3, 3),
+            (4, 2),
+            (5, 2)
+        ]
+        self.box_count = 5
+        self.limit = 60
+
+
+
