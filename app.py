@@ -21,7 +21,7 @@ class App:
         if pyxel.btnp(pyxel.KEY_R) or pyxel.btnp(pyxel.GAMEPAD_1_B):
             self.reset()
         
-        if pyxel.btnp(pyxel.KEY_N):
+        if pyxel.btnp(pyxel.KEY_N) or pyxel.btnp(pyxel.GAMEPAD_1_X):
             self.go_to_next_stage()
 
         if self.gameover or self.goal: return 

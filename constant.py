@@ -10,7 +10,7 @@ L_to_R = "R"
 EMPTY = 0
 WALL = 2
 GOAL = 4
-
+GRASS = 1
 S_WALL = 3
 SE_GAME_OVER = 4
 SE_GAME_CLEAR = 5
