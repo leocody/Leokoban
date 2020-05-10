@@ -161,12 +161,13 @@ class App:
     
     
     def go_to_next_stage(self):
-        # Play next stage sound
+        pyxel.play(3, C.SE_NEXT)
         self.stage_number += 1
         self.stage_number %= Stage.num_of_stages()
         self.reset()
     
     def go_to_preivious_stage(self):
+        pyxel.play(3, C.SE_PREVIOUS)
         self.stage_number -= 1
         self.stage_number %= Stage.num_of_stages()
         self.reset()
