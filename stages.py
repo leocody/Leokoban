@@ -31,12 +31,15 @@ class Stage:
 
         if stage_number == 2:
             stage = Stage3()
+
+        if stage_number == 3:
+            stage = Stage4()
         
         return stage
     
     @staticmethod
     def stage_count_limit():
-        return 3
+        return 4
 
 class Stage1(Stage):
     def __init__(self):
@@ -104,6 +107,32 @@ class Stage3(Stage):
         ]
         self.box_count = 5
         self.limit = 60
+
+
+class Stage4(Stage):
+    def __init__(self):
+        self.layout = [
+            [2, 2, 2, 2, 2, 2, 2, 2, 0],
+            [2, 0, 0, 0, 0, 0, 0, 2, 0],
+            [2, 0, 2, 0, 0, 0, 0, 2, 0],
+            [2, 0, 4, 4, 4, 2, 0, 2, 0],
+            [2, 2, 4, 4, 4, 0, 0, 2, 2],
+            [0, 2, 0, 2, 2, 0, 0, 0, 2],
+            [0, 2, 0, 0, 0, 0, 0, 0, 2],
+            [0, 2, 0, 0, 2, 0, 0, 0, 2],
+            [0, 2, 2, 2, 2, 2, 2, 2, 2]   
+        ]
+        self.player = (7, 7)
+        self.boxes = [
+            (2, 6),
+            (3, 2),
+            (4, 2),
+            (5, 4),
+            (5, 6),
+            (6, 5)
+        ]
+        self.box_count = 6
+        self.limit = 110
 
 
 

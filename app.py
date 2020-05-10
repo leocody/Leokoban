@@ -2,6 +2,7 @@ import pyxel
 from player import Player
 from box import Box
 from constant import PYSIZE, HALFPYSIZE, SCREEN_HEIGHT, SCREEN_WIDTH, GOAL, WALL, U_to_D, D_to_U, L_to_R, R_to_L
+import constant as C
 from stages import Stage
 
 
@@ -9,9 +10,9 @@ from stages import Stage
 class App:
     def __init__(self):
         self.stage_number = 0
-        self.reset()
         pyxel.init(SCREEN_WIDTH, SCREEN_HEIGHT, caption="Leokoban")
-        pyxel.load("assets/images.pyxres")
+        pyxel.load("assets/leokoban.pyxres")
+        self.reset()
         pyxel.run(self.draw, self.update)
     
     def update(self):
@@ -39,6 +40,7 @@ class App:
 
             
         self.check_complete()
+        #TODO: PLAY CLEAR SOUND When Goal flag On
         self.check_gameover()
 
     def check_complete(self):
@@ -54,20 +56,26 @@ class App:
 
     def check_gameover(self):
         if self.player.step >= self.stage.limit:
+            #TODO: GAME OVER SOUND
             self.gameover = True
 
 
     def handle_up_key(self):
         if not self.player.can_move(self.stage, D_to_U):
+            pyxel.play(3, C.S_WALL)
             return
 
         for box in self.boxes:
             if box.is_collision(self.player.x, self.player.y - 1):
                 if box.can_move(self.stage, self.boxes, D_to_U):
+                    pyxel.play(3, C.SE_MOVE)
                     self.player.push_and_move_up(box)
+                else:
+                    pyxel.play(3, C.S_WALL)
+                    pass
 
                 return
-
+        pyxel.play(3, C.SE_MOVE)
         self.player.move_up()
 
 
@@ -75,42 +83,60 @@ class App:
 
     def handle_down_key(self):
         if not self.player.can_move(self.stage, U_to_D):
+            pyxel.play(3, C.S_WALL)
             return
 
         for box in self.boxes:
             if box.is_collision(self.player.x, self.player.y + 1):
                 if box.can_move(self.stage, self.boxes, U_to_D):
+                    pyxel.play(3, C.SE_MOVE)
                     self.player.push_and_move_down(box)
-
+                else:
+                    pyxel.play(3, C.S_WALL)
+                    pass
                 return
-
+        pyxel.play(3, C.SE_MOVE)
         self.player.move_down()
 
     def handle_left_key(self):
         if not self.player.can_move(self.stage, R_to_L):
+            pyxel.play(3, C.S_WALL)
             return
 
         for box in self.boxes:
             if box.is_collision(self.player.x - 1, self.player.y):
                 if box.can_move(self.stage, self.boxes, R_to_L):
+                    pyxel.play(3, C.SE_MOVE)
                     self.player.push_and_move_left(box)
 
+                else:
+                    pyxel.play(3, C.S_WALL)
+                    pass
+                
                 return
 
+        pyxel.play(3, C.SE_MOVE)
         self.player.move_left()
 
     def handle_right_key(self):
         if not self.player.can_move(self.stage, L_to_R):
+            pyxel.play(3, C.S_WALL)
             return
 
         for box in self.boxes:
             if box.is_collision(self.player.x + 1, self.player.y):
                 if box.can_move(self.stage, self.boxes, L_to_R):
+                    pyxel.play(3, C.SE_MOVE)
                     self.player.push_and_move_right(box)
-
+                else:
+                    pyxel.play(3, C.S_WALL)
+                    pass
+            
                 return
-
+        
+        pyxel.play(3, C.SE_MOVE)
         self.player.move_right()
+
 
     
         #RESET LOGIC
@@ -124,10 +150,12 @@ class App:
             box_tuple = self.stage.boxes[i]
             box = Box(box_tuple[0], box_tuple[1])
             self.boxes.append(box)
+        pyxel.playm(C.BGM, loop=True)
 
     
     
     def go_to_next_stage(self):
+        # Play next stage sound
         self.stage_number += 1
         self.stage_number %= Stage.stage_count_limit()
         self.reset()
@@ -142,7 +170,7 @@ class App:
         for box in self.boxes:
             box.draw()
 
-        if self.goal:            #CHECK IF IT IS GOAL
+        if self.goal:               #CHECK IF IT IS GOAL
             pyxel.text(
                 SCREEN_WIDTH / 2 - 35, 
                 SCREEN_HEIGHT / 2,
