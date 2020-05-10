@@ -74,7 +74,7 @@ class Player:
     #DRAW LOGIC
     def draw(self):
         pyxel.blt(self.x * PYSIZE, self.y * PYSIZE, 0, 16, 0, 16, 16)
-        pyxel.text(1, SCREEN_HEIGHT - 9, "Walk Step : " + str(self.step), pyxel.COLOR_WHITE)
+
 
 
 

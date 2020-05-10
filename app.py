@@ -10,15 +10,16 @@ from stages import Stage
 class App:
     def __init__(self):
         self.stage_number = 0
-        pyxel.init(SCREEN_WIDTH, SCREEN_HEIGHT, caption="Leokoban")
+        pyxel.init(SCREEN_WIDTH, SCREEN_HEIGHT, caption="Leokoban", fullscreen=True)
         pyxel.load("assets/leokoban.pyxres")
         self.reset()
         pyxel.run(self.draw, self.update)
     
     def update(self):
-        if pyxel.btnp(pyxel.KEY_Q) or pyxel.btnp(pyxel.GAMEPAD_1_A):
+        if pyxel.btnp(pyxel.KEY_Q):
             pyxel.quit()
         if pyxel.btnp(pyxel.KEY_R) or pyxel.btnp(pyxel.GAMEPAD_1_B):
+            pyxel.play(3, C.SE_NEXT)
             self.reset()
         
         if pyxel.btnp(pyxel.KEY_N) or pyxel.btnp(pyxel.GAMEPAD_1_RIGHT_SHOULDER):
@@ -147,6 +148,7 @@ class App:
     
         #RESET LOGIC
     def reset(self):
+        
         self.stage = Stage.create_stage(self.stage_number)
         self.player = Player(self.stage.player[0], self.stage.player[1])
         self.boxes = []
@@ -177,6 +179,8 @@ class App:
         pyxel.cls(pyxel.COLOR_BLACK)
         self.stage.draw()
         self.player.draw()
+        pyxel.text(1, SCREEN_HEIGHT - 9, "Walk Step  : " + str(self.player.step), pyxel.COLOR_WHITE)
+        pyxel.text(1, SCREEN_HEIGHT - 20, "Limit Step : " + str(self.stage.limit), pyxel.COLOR_WHITE)
         pyxel.text(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 9, "Stage " + str(self.stage_number + 1), pyxel.COLOR_WHITE)
         for box in self.boxes:
             box.draw()

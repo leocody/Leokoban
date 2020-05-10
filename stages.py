@@ -1,6 +1,7 @@
 
 from constant import GOAL, WALL, EMPTY, PYSIZE, GRASS
 import pyxel
+import constant as C
 
 class Stage:
     def __init__(self):
@@ -35,7 +36,6 @@ class Stage:
 
         if stage_number == 2:
             stage = Stage3()
-
         if stage_number == 3:
             stage = Stage4()
         
@@ -44,6 +44,9 @@ class Stage:
     @staticmethod
     def num_of_stages():
         return 4
+    
+
+
 
 
 class Stage1(Stage):
@@ -91,6 +94,7 @@ class Stage2(Stage):
         self.box_count = 3
         self.limit = 100
 
+
 class Stage3(Stage):
     def __init__(self):
         self.layout = [
@@ -111,7 +115,8 @@ class Stage3(Stage):
             (5, 2)
         ]
         self.box_count = 5
-        self.limit = 60
+        self.limit = 45
+
 
 
 class Stage4(Stage):
@@ -137,7 +142,7 @@ class Stage4(Stage):
             (6, 5)
         ]
         self.box_count = 6
-        self.limit = 110
+        self.limit = 80
 
 
 
