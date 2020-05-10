@@ -64,7 +64,7 @@ class Stage1(Stage):
         ]
         self.player = (3, 1)
         self.box_count = 3
-        self.limit = 55
+        self.limit = 75
 
 
 class Stage2(Stage):

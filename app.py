@@ -40,7 +40,9 @@ class App:
 
             
         self.check_complete()
-        #TODO: PLAY CLEAR SOUND When Goal flag On
+        if self.goal == True:
+            pyxel.stop()
+            pyxel.play(3, C.SE_GAME_CLEAR)
         self.check_gameover()
 
     def check_complete(self):
@@ -56,7 +58,8 @@ class App:
 
     def check_gameover(self):
         if self.player.step >= self.stage.limit:
-            #TODO: GAME OVER SOUND
+            pyxel.stop()
+            pyxel.play(3, C.SE_GAME_OVER)
             self.gameover = True
 
 
