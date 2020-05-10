@@ -42,8 +42,9 @@ class Stage:
         return stage
     
     @staticmethod
-    def stage_count_limit():
+    def num_of_stages():
         return 4
+
 
 class Stage1(Stage):
     def __init__(self):

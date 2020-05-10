@@ -21,8 +21,11 @@ class App:
         if pyxel.btnp(pyxel.KEY_R) or pyxel.btnp(pyxel.GAMEPAD_1_B):
             self.reset()
         
-        if pyxel.btnp(pyxel.KEY_N) or pyxel.btnp(pyxel.GAMEPAD_1_X):
+        if pyxel.btnp(pyxel.KEY_N) or pyxel.btnp(pyxel.GAMEPAD_1_RIGHT_SHOULDER):
             self.go_to_next_stage()
+        
+        if pyxel.btnp(pyxel.KEY_P) or pyxel.btnp(pyxel.GAMEPAD_1_LEFT_SHOULDER):
+            self.go_to_preivious_stage()
 
         if self.gameover or self.goal: return 
 
@@ -160,9 +163,13 @@ class App:
     def go_to_next_stage(self):
         # Play next stage sound
         self.stage_number += 1
-        self.stage_number %= Stage.stage_count_limit()
+        self.stage_number %= Stage.num_of_stages()
         self.reset()
-
+    
+    def go_to_preivious_stage(self):
+        self.stage_number -= 1
+        self.stage_number %= Stage.num_of_stages()
+        self.reset()
 
     #DRAW LOGIC  
     def draw(self):
