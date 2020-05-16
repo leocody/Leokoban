@@ -1,6 +1,6 @@
 # Leokoban
 This is a game called "Sokoban" made with Pyxel. This is my first project I will publish it!!
-Sorry, the BGM is awfull.😭
+Sorry, the BGM is awful.😭
 
 Play a game "Leokoban" with using keyboard / USB game controller(Game pad)!!! (^-^)
 
